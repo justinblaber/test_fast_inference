@@ -1,0 +1,511 @@
+==28406== NVPROF is profiling process 28406, command: python test_fast_inference/tensorrt_inference_py.py model_8.engine batches/X0.raw
+[TensorRT] VERBOSE: Deserialize required 1323685 microseconds.
+[TensorRT] VERBOSE: Allocated persistent device memory of size 2653184
+[TensorRT] VERBOSE: Allocated activation device memory of size 24772608
+[TensorRT] VERBOSE: Assigning persistent memory blocks for various profiles
+==28406== Profiling application: python test_fast_inference/tensorrt_inference_py.py model_8.engine batches/X0.raw
+==28406== Profiling result:
+            Type  Time(%)      Time     Calls       Avg       Min       Max  Name
+ GPU activities:   14.38%  367.45us        52  7.0660us  1.2800us  237.09us  [CUDA memcpy HtoD]
+                   12.61%  322.30us         4  80.575us  36.928us  130.43us  trt_volta_fp32_icudnn_int8x4_128x32_relu_xregs_small_nn_v1
+                   11.82%  301.98us         1  301.98us  301.98us  301.98us  [CUDA memcpy DtoH]
+                   11.03%  281.85us        11  25.622us  6.4000us  69.311us  void cudnn::bn_fw_tr_1C11_singleread<float, int=512, bool=1, int=1, int=2, int=0>(cudnnTensorStruct, float const *, cudnn::bn_fw_tr_1C11_singleread<float, int=512, bool=1, int=1, int=2, int=0>, cudnnTensorStruct*, float const *, float const , float, float, float*, float const *, float const *, float const *, float, float, cudnn::reduced_divisor, int, float*, cudnn::bnFwPersistentState*, int, float, float, float, int, float, float, cudnnStatus_t*, bool)
+                    7.42%  189.66us         1  189.66us  189.66us  189.66us  trt_volta_fp32_icudnn_int8x4_128x32_relu_small_nn_v1
+                    6.20%  158.50us         1  158.50us  158.50us  158.50us  void nhwkuv_to_nkpq_ker<int=32>(char*, float const *, int, int, int, int, int, int, nvinfer1::rt::reduced_divisor, int, int, nvinfer1::rt::reduced_divisor, nvinfer1::rt::reduced_divisor, int, int, int, float const *, float const *)
+                    4.56%  116.48us        11  10.589us  3.2320us  26.496us  cuInt8::nchwToNcqhw4(float const *, unsigned int*, int, int, int, int, int, int, int, float const *, cuInt8::ReducedDivisorParameters)
+                    3.44%  87.839us         7  12.548us  4.6080us  22.816us  void cuActivationLayer::activationKernelInt8<nvinfer1::ActivationType, int=1>(char4 const *, cuActivationLayer::activationKernelInt8<nvinfer1::ActivationType, int=1>*, float const *, float const , int, int, int, int, int, float)
+                    3.28%  83.776us        22  3.8080us  1.8240us  12.736us  [CUDA memcpy DtoD]
+                    3.00%  76.607us         1  76.607us  76.607us  76.607us  trt_turing_fp32_i8816cudnn_int8_256x64_ldg16_relu_singleBuffer_small_nt_v1
+                    2.41%  61.599us         3  20.533us  9.6640us  34.175us  void nhwkuv_to_nkpq_ker<int=4>(float*, float const *, int, int, int, int, int, int, nvinfer1::rt::reduced_divisor, int, int, nvinfer1::rt::reduced_divisor, nvinfer1::rt::reduced_divisor, int, int, int, float const *, float const *)
+                    2.22%  56.672us         1  56.672us  56.672us  56.672us  trt_volta_fp32_icudnn_int8x4_128x128_relu_small_nn_v1
+                    2.15%  54.879us         1  54.879us  54.879us  54.879us  trt_volta_scudnn_128x32_relu_small_nn_v1
+                    1.95%  49.824us         1  49.824us  49.824us  49.824us  trt_volta_fp32_icudnn_int8x4_128x64_relu_xregs_large_nn_v1
+                    1.80%  46.111us         1  46.111us  46.111us  46.111us  cuInt8::nc32hw32ToNcqhw4(char4 const *, char4*, nvinfer1::rt::reduced_divisor, int, nvinfer1::rt::reduced_divisor, nvinfer1::rt::reduced_divisor, int, int, float const *, float const *)
+                    1.47%  37.568us         1  37.568us  37.568us  37.568us  trt_volta_fp32_icudnn_int8x4_128x64_relu_small_nn_v1
+                    1.45%  36.992us         2  18.496us  18.080us  18.912us  volta_sgemm_128x32_nn
+                    1.23%  31.552us         1  31.552us  31.552us  31.552us  void xmma_trt::ext::implicit_gemm::interleaved_fprop::kernel<xmma_trt::ext::implicit_gemm::interleaved_fprop::Interleaved_kernel_traits<xmma_trt::Turing_imma_interleaved_int8_int32_traits, xmma_trt::Cta_tile<xmma_trt::Turing, int=32, int=64, int=64, int=1, int=1, int=1, int=1, int=1>, xmma_trt::ext::implicit_gemm::interleaved_fprop::Gmem_tile_epilogue<xmma_trt::Turing_imma_interleaved_int8_int32_traits, xmma_trt::Cta_tile<xmma_trt::Turing, int=32, int=64, int=64, int=1, int=1, int=1, int=1, int=1>, bool=0>, xmma_trt::implicit_gemm::Input_related<int=0, int=0, int=0, bool=0>, int=32, int=1>>(xmma_trt::Turing_imma_interleaved_int8_int32_traitsParams)
+                    1.12%  28.512us         1  28.512us  28.512us  28.512us  void fused::fusedConvolutionReluKernel<fused::SrcChwcPtr_FltTex_Reader<char, int=4, int=4, int=1, int=1>, fused::KpqkPtrWriter<char, int=4, int=1, int=1>, int, float, int=7, int=7, int=8, int=3, int=3, int=1, int=1>(fused::ConvolutionParams<charSrcType, int=1, int=4Type>)
+                    0.97%  24.896us         3  8.2980us  6.0480us  9.6960us  void nchw_to_nhwcin_ker<unsigned int>(unsigned int*, unsigned int const *, int, int, nvinfer1::rt::reduced_divisor, nvinfer1::rt::reduced_divisor, int, nvinfer1::rt::reduced_divisor, int, int, int, int, int, int)
+                    0.97%  24.832us         1  24.832us  24.832us  24.832us  volta_sgemm_32x128_nn
+                    0.97%  24.672us        14  1.7620us  1.2800us  2.3680us  [CUDA memset]
+                    0.88%  22.495us         1  22.495us  22.495us  22.495us  void fused::fusedConvolutionReluKernel<fused::SrcChwcPtr_FltTex_Reader<char, int=4, int=4, int=1, int=2>, fused::KpqkPtrWriter<char, int=4, int=2, int=1>, int, float, int=4, int=7, int=4, int=3, int=3, int=1, int=1>(fused::ConvolutionParams<charSrcType, int=1, int=4Type>)
+                    0.81%  20.704us         2  10.352us  9.1520us  11.552us  cuInt8::ncqhw4ToNc32hw32(char4 const *, char4*, nvinfer1::rt::reduced_divisor, int, nvinfer1::rt::reduced_divisor, nvinfer1::rt::reduced_divisor, int, int, float const *, float const *)
+                    0.71%  18.080us         4  4.5200us  3.4880us  5.8880us  void op_generic_tensor_kernel<int=1, float, float, float, int=256, cudnnGenericOp_t=8, cudnnNanPropagation_t=1, int=1>(cudnnTensorStruct, float*, cudnnTensorStruct, float const *, cudnnTensorStruct, float const *, float, float, float, float, reducedDivisorArray, int)
+                    0.50%  12.768us         1  12.768us  12.768us  12.768us  void nchw_to_nhwcin_ker<double4>(double4*, double4 const *, int, int, nvinfer1::rt::reduced_divisor, nvinfer1::rt::reduced_divisor, int, nvinfer1::rt::reduced_divisor, int, int, int, int, int, int)
+                    0.36%  9.1520us         1  9.1520us  9.1520us  9.1520us  void genericReformat::copyPackedKernel<char, float, bool=1, bool=0, genericReformat::IdentityCoordMapper<int=4>, int=4>(unsigned int, unsigned int, void const *, genericReformat::ArrayN<genericReformat::IdentityCoordMapper<int=4>>, genericReformat::ArrayNWithReducedDivisors<genericReformat::IdentityCoordMapper<int=4>>, genericReformat::ArrayN, int, int, int, float const *, void*, genericReformat::ArrayN, genericReformat::ArrayNWithReducedDivisors, genericReformat::ArrayNWithReducedDivisors, genericReformat::ArrayN, int, int, int, float const , int=4)
+                    0.31%  8.0310us         2  4.0150us  3.3920us  4.6390us  cuInt8::ncqhw4ToNchw(char const *, float*, int, int, int, int, int, int, float const *, cuInt8::ReducedDivisorParameters)
+      API calls:   69.68%  1.86989s        56  33.391ms     232ns  650.39ms  cudaFree
+                   24.92%  668.74ms         1  668.74ms  668.74ms  668.74ms  cuCtxDetach
+                    4.96%  132.99ms         1  132.99ms  132.99ms  132.99ms  cuCtxCreate
+                    0.05%  1.3921ms        73  19.070us  1.9140us  149.42us  cudaMalloc
+                    0.05%  1.2462ms         2  623.10us  470.31us  775.88us  cuMemHostAlloc
+                    0.04%  1.0583ms        28  37.796us  8.1360us  159.04us  cudaMemcpy
+                    0.04%  1.0424ms         7  148.92us  129.05us  211.93us  cudaGetDeviceProperties
+                    0.03%  894.59us       591  1.5130us     102ns  66.113us  cuDeviceGetAttribute
+                    0.03%  847.47us      1992     425ns     275ns  4.0540us  cudaFuncSetAttribute
+                    0.03%  774.10us         6  129.02us  124.04us  139.63us  cuDeviceTotalMem
+                    0.03%  769.72us         1  769.72us  769.72us  769.72us  cuStreamSynchronize
+                    0.03%  738.03us       184  4.0110us     211ns  96.351us  cudaDeviceGetAttribute
+                    0.02%  547.34us         2  273.67us  7.7500us  539.59us  cudaHostAlloc
+                    0.02%  461.57us         2  230.78us  15.687us  445.88us  cuMemFreeHost
+                    0.02%  461.48us        45  10.255us  2.3790us  219.17us  cudaMemcpyAsync
+                    0.01%  374.94us        63  5.9510us  3.8980us  27.133us  cudaLaunchKernel
+                    0.01%  289.23us         1  289.23us  289.23us  289.23us  cudaFreeHost
+                    0.01%  181.64us         8  22.705us  1.2300us  169.60us  cudaStreamCreateWithPriority
+                    0.01%  172.92us         6  28.819us  17.493us  36.839us  cuDeviceGetName
+                    0.01%  162.31us         2  81.152us  8.3680us  153.94us  cuMemAlloc
+                    0.00%  108.67us        14  7.7620us  3.2500us  24.589us  cudaMemsetAsync
+                    0.00%  106.19us         3  35.396us  3.8940us  98.054us  cudaStreamSynchronize
+                    0.00%  86.034us         2  43.017us  10.959us  75.075us  cuMemFree
+                    0.00%  72.665us       157     462ns     314ns  2.1520us  cudaEventCreateWithFlags
+                    0.00%  47.830us        16  2.9890us  1.1990us  17.484us  cudaStreamCreateWithFlags
+                    0.00%  34.951us        76     459ns      92ns  18.534us  cudaGetLastError
+                    0.00%  33.278us        12  2.7730us  1.5770us  12.423us  cudaStreamDestroy
+                    0.00%  23.487us        24     978ns     466ns  3.9170us  cudaEventRecord
+                    0.00%  22.623us        50     452ns     299ns  2.9390us  cudaEventDestroy
+                    0.00%  17.668us         2  8.8340us  2.4120us  15.256us  cudaCreateTextureObject
+                    0.00%  15.061us        16     941ns     375ns  4.2290us  cudaGetDevice
+                    0.00%  13.203us         9  1.4670us     799ns  2.9290us  cudaDeviceSynchronize
+                    0.00%  12.833us         6  2.1380us  1.7230us  3.7760us  cuInit
+                    0.00%  9.4790us         1  9.4790us  9.4790us  9.4790us  cuMemcpyHtoDAsync
+                    0.00%  8.9920us        12     749ns     577ns  1.3750us  cudaStreamWaitEvent
+                    0.00%  8.1390us         1  8.1390us  8.1390us  8.1390us  cuMemcpyDtoHAsync
+                    0.00%  6.8470us         1  6.8470us  6.8470us  6.8470us  cuStreamDestroy
+                    0.00%  5.6730us         5  1.1340us     357ns  2.3210us  cudaOccupancyMaxActiveBlocksPerMultiprocessorWithFlags
+                    0.00%  3.9130us         1  3.9130us  3.9130us  3.9130us  cuStreamCreate
+                    0.00%  3.4580us         1  3.4580us  3.4580us  3.4580us  cuDeviceGetPCIBusId
+                    0.00%  2.9350us         9     326ns     152ns     747ns  cuDeviceGetCount
+                    0.00%  2.9130us         6     485ns     274ns     914ns  cuDriverGetVersion
+                    0.00%  2.3590us         8     294ns     160ns     548ns  cuDeviceGet
+                    0.00%  1.9620us         1  1.9620us  1.9620us  1.9620us  cuCtxPopCurrent
+                    0.00%  1.8410us         2     920ns     747ns  1.0940us  cudaHostGetDevicePointer
+                    0.00%  1.5540us         2     777ns     622ns     932ns  cudaDeviceGetStreamPriorityRange
+                    0.00%  1.3460us         6     224ns     204ns     254ns  cuDeviceGetUuid
+                    0.00%  1.0900us         5     218ns     125ns     361ns  cudaGetDeviceCount
+                    0.00%     490ns         3     163ns     144ns     196ns  cudaRuntimeGetVersion
+                    0.00%     427ns         1     427ns     427ns     427ns  cuCtxGetDevice
+                    0.00%     365ns         1     365ns     365ns     365ns  cuCtxPushCurrent
+                    0.00%     301ns         2     150ns     116ns     185ns  cudaCreateChannelDesc
+
+==28406== NVTX result:
+==28406==   Thread "<unnamed>" (id = 152647488)
+==28406==     Domain "TensorRT"
+==28406==       Range "64 copy"
+            Type  Time(%)      Time     Calls       Avg       Min       Max  Name
+          Range:  100.00%  7.7450us         1  7.7450us  7.7450us  7.7450us  64 copy
+ GPU activities:  100.00%  3.2320us         1  3.2320us  3.2320us  3.2320us  cuInt8::nchwToNcqhw4(float const *, unsigned int*, int, int, int, int, int, int, int, float const *, cuInt8::ReducedDivisorParameters)
+      API calls:  100.00%  4.5820us         1  4.5820us  4.5820us  4.5820us  cudaLaunchKernel
+
+==28406==       Range "70 copy"
+            Type  Time(%)      Time     Calls       Avg       Min       Max  Name
+          Range:  100.00%  7.5950us         1  7.5950us  7.5950us  7.5950us  70 copy
+ GPU activities:  100.00%  4.3200us         1  4.3200us  4.3200us  4.3200us  cuInt8::nchwToNcqhw4(float const *, unsigned int*, int, int, int, int, int, int, int, float const *, cuInt8::ReducedDivisorParameters)
+      API calls:  100.00%  4.2310us         1  4.2310us  4.2310us  4.2310us  cudaLaunchKernel
+
+==28406==       Range "75 copy"
+            Type  Time(%)      Time     Calls       Avg       Min       Max  Name
+          Range:  100.00%  7.2130us         1  7.2130us  7.2130us  7.2130us  75 copy
+ GPU activities:  100.00%  5.9520us         1  5.9520us  5.9520us  5.9520us  cuInt8::nchwToNcqhw4(float const *, unsigned int*, int, int, int, int, int, int, int, float const *, cuInt8::ReducedDivisorParameters)
+      API calls:  100.00%  4.1990us         1  4.1990us  4.1990us  4.1990us  cudaLaunchKernel
+
+==28406==       Range "80 copy"
+            Type  Time(%)      Time     Calls       Avg       Min       Max  Name
+          Range:  100.00%  8.4620us         1  8.4620us  8.4620us  8.4620us  80 copy
+ GPU activities:  100.00%  12.032us         1  12.032us  12.032us  12.032us  cuInt8::nchwToNcqhw4(float const *, unsigned int*, int, int, int, int, int, int, int, float const *, cuInt8::ReducedDivisorParameters)
+      API calls:  100.00%  5.2960us         1  5.2960us  5.2960us  5.2960us  cudaLaunchKernel
+
+==28406==       Range "ConvTranspose_26"
+            Type  Time(%)      Time     Calls       Avg       Min       Max  Name
+          Range:  100.00%  86.478us         1  86.478us  86.478us  86.478us  ConvTranspose_26
+ GPU activities:   53.50%  18.080us         1  18.080us  18.080us  18.080us  volta_sgemm_128x32_nn
+                   28.60%  9.6640us         1  9.6640us  9.6640us  9.6640us  void nhwkuv_to_nkpq_ker<int=4>(float*, float const *, int, int, int, int, int, int, nvinfer1::rt::reduced_divisor, int, int, nvinfer1::rt::reduced_divisor, nvinfer1::rt::reduced_divisor, int, int, int, float const *, float const *)
+                   17.90%  6.0480us         1  6.0480us  6.0480us  6.0480us  void nchw_to_nhwcin_ker<unsigned int>(unsigned int*, unsigned int const *, int, int, nvinfer1::rt::reduced_divisor, nvinfer1::rt::reduced_divisor, int, nvinfer1::rt::reduced_divisor, int, int, int, int, int, int)
+      API calls:  100.00%  19.115us         3  6.3710us  4.8620us  7.2990us  cudaLaunchKernel
+
+==28406==       Range "ConvTranspose_31"
+            Type  Time(%)      Time     Calls       Avg       Min       Max  Name
+          Range:  100.00%  27.149us         1  27.149us  27.149us  27.149us  ConvTranspose_31
+ GPU activities:   41.27%  18.912us         1  18.912us  18.912us  18.912us  volta_sgemm_128x32_nn
+                   38.76%  17.760us         1  17.760us  17.760us  17.760us  void nhwkuv_to_nkpq_ker<int=4>(float*, float const *, int, int, int, int, int, int, nvinfer1::rt::reduced_divisor, int, int, nvinfer1::rt::reduced_divisor, nvinfer1::rt::reduced_divisor, int, int, int, float const *, float const *)
+                   19.97%  9.1520us         1  9.1520us  9.1520us  9.1520us  void nchw_to_nhwcin_ker<unsigned int>(unsigned int*, unsigned int const *, int, int, nvinfer1::rt::reduced_divisor, nvinfer1::rt::reduced_divisor, int, nvinfer1::rt::reduced_divisor, int, int, int, int, int, int)
+      API calls:  100.00%  14.351us         3  4.7830us  3.9790us  5.4510us  cudaLaunchKernel
+
+==28406==       Range "ConvTranspose_36"
+            Type  Time(%)      Time     Calls       Avg       Min       Max  Name
+          Range:  100.00%  48.872us         1  48.872us  48.872us  48.872us  ConvTranspose_36
+ GPU activities:   49.74%  34.175us         1  34.175us  34.175us  34.175us  void nhwkuv_to_nkpq_ker<int=4>(float*, float const *, int, int, int, int, int, int, nvinfer1::rt::reduced_divisor, int, int, nvinfer1::rt::reduced_divisor, nvinfer1::rt::reduced_divisor, int, int, int, float const *, float const *)
+                   36.14%  24.832us         1  24.832us  24.832us  24.832us  volta_sgemm_32x128_nn
+                   14.11%  9.6960us         1  9.6960us  9.6960us  9.6960us  void nchw_to_nhwcin_ker<unsigned int>(unsigned int*, unsigned int const *, int, int, nvinfer1::rt::reduced_divisor, nvinfer1::rt::reduced_divisor, int, nvinfer1::rt::reduced_divisor, int, int, int, int, int, int)
+      API calls:  100.00%  35.484us         3  11.828us  4.0160us  27.133us  cudaLaunchKernel
+
+==28406==       Range "ConvTranspose_41"
+            Type  Time(%)      Time     Calls       Avg       Min       Max  Name
+          Range:  100.00%  27.449us         1  27.449us  27.449us  27.449us  ConvTranspose_41
+ GPU activities:   63.94%  158.50us         1  158.50us  158.50us  158.50us  void nhwkuv_to_nkpq_ker<int=32>(char*, float const *, int, int, int, int, int, int, nvinfer1::rt::reduced_divisor, int, int, nvinfer1::rt::reduced_divisor, nvinfer1::rt::reduced_divisor, int, int, int, float const *, float const *)
+                   30.91%  76.607us         1  76.607us  76.607us  76.607us  trt_turing_fp32_i8816cudnn_int8_256x64_ldg16_relu_singleBuffer_small_nt_v1
+                    5.15%  12.768us         1  12.768us  12.768us  12.768us  void nchw_to_nhwcin_ker<double4>(double4*, double4 const *, int, int, nvinfer1::rt::reduced_divisor, nvinfer1::rt::reduced_divisor, int, nvinfer1::rt::reduced_divisor, int, int, int, int, int, int)
+      API calls:  100.00%  15.682us         3  5.2270us  5.0770us  5.3890us  cudaLaunchKernel
+
+==28406==       Range "ConvTranspose_41 input reformatter 0"
+            Type  Time(%)      Time     Calls       Avg       Min       Max  Name
+          Range:  100.00%  7.2190us         1  7.2190us  7.2190us  7.2190us  ConvTranspose_41 input reformatter 0
+ GPU activities:  100.00%  9.1520us         1  9.1520us  9.1520us  9.1520us  cuInt8::ncqhw4ToNc32hw32(char4 const *, char4*, nvinfer1::rt::reduced_divisor, int, nvinfer1::rt::reduced_divisor, nvinfer1::rt::reduced_divisor, int, int, float const *, float const *)
+      API calls:  100.00%  4.4990us         1  4.4990us  4.4990us  4.4990us  cudaLaunchKernel
+
+==28406==       Range "Conv_0"
+            Type  Time(%)      Time     Calls       Avg       Min       Max  Name
+          Range:  100.00%  22.387us         1  22.387us  22.387us  22.387us  Conv_0
+ GPU activities:  100.00%  54.879us         1  54.879us  54.879us  54.879us  trt_volta_scudnn_128x32_relu_small_nn_v1
+      API calls:  100.00%  10.327us         1  10.327us  10.327us  10.327us  cudaLaunchKernel
+
+==28406==       Range "Conv_12"
+            Type  Time(%)      Time     Calls       Avg       Min       Max  Name
+          Range:  100.00%  7.8900us         1  7.8900us  7.8900us  7.8900us  Conv_12
+ GPU activities:  100.00%  37.568us         1  37.568us  37.568us  37.568us  trt_volta_fp32_icudnn_int8x4_128x64_relu_small_nn_v1
+      API calls:  100.00%  5.0140us         1  5.0140us  5.0140us  5.0140us  cudaLaunchKernel
+
+==28406==       Range "Conv_15"
+            Type  Time(%)      Time     Calls       Avg       Min       Max  Name
+          Range:  100.00%  8.2790us         1  8.2790us  8.2790us  8.2790us  Conv_15
+ GPU activities:  100.00%  56.672us         1  56.672us  56.672us  56.672us  trt_volta_fp32_icudnn_int8x4_128x128_relu_small_nn_v1
+      API calls:  100.00%  5.0110us         1  5.0110us  5.0110us  5.0110us  cudaLaunchKernel
+
+==28406==       Range "Conv_18"
+            Type  Time(%)      Time     Calls       Avg       Min       Max  Name
+          Range:  100.00%  11.497us         1  11.497us  11.497us  11.497us  Conv_18
+ GPU activities:  100.00%  31.552us         1  31.552us  31.552us  31.552us  void xmma_trt::ext::implicit_gemm::interleaved_fprop::kernel<xmma_trt::ext::implicit_gemm::interleaved_fprop::Interleaved_kernel_traits<xmma_trt::Turing_imma_interleaved_int8_int32_traits, xmma_trt::Cta_tile<xmma_trt::Turing, int=32, int=64, int=64, int=1, int=1, int=1, int=1, int=1>, xmma_trt::ext::implicit_gemm::interleaved_fprop::Gmem_tile_epilogue<xmma_trt::Turing_imma_interleaved_int8_int32_traits, xmma_trt::Cta_tile<xmma_trt::Turing, int=32, int=64, int=64, int=1, int=1, int=1, int=1, int=1>, bool=0>, xmma_trt::implicit_gemm::Input_related<int=0, int=0, int=0, bool=0>, int=32, int=1>>(xmma_trt::Turing_imma_interleaved_int8_int32_traitsParams)
+      API calls:  100.00%  6.5600us         1  6.5600us  6.5600us  6.5600us  cudaLaunchKernel
+
+==28406==       Range "Conv_18 input reformatter 0"
+            Type  Time(%)      Time     Calls       Avg       Min       Max  Name
+          Range:  100.00%  10.555us         1  10.555us  10.555us  10.555us  Conv_18 input reformatter 0
+ GPU activities:  100.00%  11.552us         1  11.552us  11.552us  11.552us  cuInt8::ncqhw4ToNc32hw32(char4 const *, char4*, nvinfer1::rt::reduced_divisor, int, nvinfer1::rt::reduced_divisor, nvinfer1::rt::reduced_divisor, int, int, float const *, float const *)
+      API calls:  100.00%  6.9400us         1  6.9400us  6.9400us  6.9400us  cudaLaunchKernel
+
+==28406==       Range "Conv_23"
+            Type  Time(%)      Time     Calls       Avg       Min       Max  Name
+          Range:  100.00%  9.5950us         1  9.5950us  9.5950us  9.5950us  Conv_23
+ GPU activities:  100.00%  22.495us         1  22.495us  22.495us  22.495us  void fused::fusedConvolutionReluKernel<fused::SrcChwcPtr_FltTex_Reader<char, int=4, int=4, int=1, int=2>, fused::KpqkPtrWriter<char, int=4, int=2, int=1>, int, float, int=4, int=7, int=4, int=3, int=3, int=1, int=1>(fused::ConvolutionParams<charSrcType, int=1, int=4Type>)
+      API calls:  100.00%  6.4610us         1  6.4610us  6.4610us  6.4610us  cudaLaunchKernel
+
+==28406==       Range "Conv_28"
+            Type  Time(%)      Time     Calls       Avg       Min       Max  Name
+          Range:  100.00%  8.3830us         1  8.3830us  8.3830us  8.3830us  Conv_28
+ GPU activities:  100.00%  28.512us         1  28.512us  28.512us  28.512us  void fused::fusedConvolutionReluKernel<fused::SrcChwcPtr_FltTex_Reader<char, int=4, int=4, int=1, int=1>, fused::KpqkPtrWriter<char, int=4, int=1, int=1>, int, float, int=7, int=7, int=8, int=3, int=3, int=1, int=1>(fused::ConvolutionParams<charSrcType, int=1, int=4Type>)
+      API calls:  100.00%  6.1070us         1  6.1070us  6.1070us  6.1070us  cudaLaunchKernel
+
+==28406==       Range "Conv_3"
+            Type  Time(%)      Time     Calls       Avg       Min       Max  Name
+          Range:  100.00%  14.519us         1  14.519us  14.519us  14.519us  Conv_3
+ GPU activities:  100.00%  96.607us         1  96.607us  96.607us  96.607us  trt_volta_fp32_icudnn_int8x4_128x32_relu_xregs_small_nn_v1
+      API calls:  100.00%  6.0230us         1  6.0230us  6.0230us  6.0230us  cudaLaunchKernel
+
+==28406==       Range "Conv_33"
+            Type  Time(%)      Time     Calls       Avg       Min       Max  Name
+          Range:  100.00%  7.1520us         1  7.1520us  7.1520us  7.1520us  Conv_33
+ GPU activities:  100.00%  58.335us         1  58.335us  58.335us  58.335us  trt_volta_fp32_icudnn_int8x4_128x32_relu_xregs_small_nn_v1
+      API calls:  100.00%  4.1260us         1  4.1260us  4.1260us  4.1260us  cudaLaunchKernel
+
+==28406==       Range "Conv_38"
+            Type  Time(%)      Time     Calls       Avg       Min       Max  Name
+          Range:  100.00%  25.729us         1  25.729us  25.729us  25.729us  Conv_38
+ GPU activities:  100.00%  130.43us         1  130.43us  130.43us  130.43us  trt_volta_fp32_icudnn_int8x4_128x32_relu_xregs_small_nn_v1
+      API calls:  100.00%  4.2990us         1  4.2990us  4.2990us  4.2990us  cudaLaunchKernel
+
+==28406==       Range "Conv_42"
+            Type  Time(%)      Time     Calls       Avg       Min       Max  Name
+          Range:  100.00%  8.2810us         1  8.2810us  8.2810us  8.2810us  Conv_42
+ GPU activities:  100.00%  189.66us         1  189.66us  189.66us  189.66us  trt_volta_fp32_icudnn_int8x4_128x32_relu_small_nn_v1
+      API calls:  100.00%  5.3830us         1  5.3830us  5.3830us  5.3830us  cudaLaunchKernel
+
+==28406==       Range "Conv_42 input reformatter 0"
+            Type  Time(%)      Time     Calls       Avg       Min       Max  Name
+          Range:  100.00%  8.1700us         1  8.1700us  8.1700us  8.1700us  Conv_42 input reformatter 0
+ GPU activities:  100.00%  46.111us         1  46.111us  46.111us  46.111us  cuInt8::nc32hw32ToNcqhw4(char4 const *, char4*, nvinfer1::rt::reduced_divisor, int, nvinfer1::rt::reduced_divisor, nvinfer1::rt::reduced_divisor, int, int, float const *, float const *)
+      API calls:  100.00%  4.8350us         1  4.8350us  4.8350us  4.8350us  cudaLaunchKernel
+
+==28406==       Range "Conv_6"
+            Type  Time(%)      Time     Calls       Avg       Min       Max  Name
+          Range:  100.00%  6.9950us         1  6.9950us  6.9950us  6.9950us  Conv_6
+ GPU activities:  100.00%  36.928us         1  36.928us  36.928us  36.928us  trt_volta_fp32_icudnn_int8x4_128x32_relu_xregs_small_nn_v1
+      API calls:  100.00%  4.3260us         1  4.3260us  4.3260us  4.3260us  cudaLaunchKernel
+
+==28406==       Range "Conv_9"
+            Type  Time(%)      Time     Calls       Avg       Min       Max  Name
+          Range:  100.00%  9.8040us         1  9.8040us  9.8040us  9.8040us  Conv_9
+ GPU activities:  100.00%  49.824us         1  49.824us  49.824us  49.824us  trt_volta_fp32_icudnn_int8x4_128x64_relu_xregs_large_nn_v1
+      API calls:  100.00%  5.6130us         1  5.6130us  5.6130us  5.6130us  cudaLaunchKernel
+
+==28406==       Range "ExecutionContext::enqueue"
+            Type  Time(%)      Time     Calls       Avg       Min       Max  Name
+          Range:  100.00%  66.842ms         1  66.842ms  66.842ms  66.842ms  ExecutionContext::enqueue
+ GPU activities:   17.34%  322.30us         4  80.575us  36.928us  130.43us  trt_volta_fp32_icudnn_int8x4_128x32_relu_xregs_small_nn_v1
+                   15.16%  281.85us        11  25.622us  6.4000us  69.311us  void cudnn::bn_fw_tr_1C11_singleread<float, int=512, bool=1, int=1, int=2, int=0>(cudnnTensorStruct, float const *, cudnn::bn_fw_tr_1C11_singleread<float, int=512, bool=1, int=1, int=2, int=0>, cudnnTensorStruct*, float const *, float const , float, float, float*, float const *, float const *, float const *, float, float, cudnn::reduced_divisor, int, float*, cudnn::bnFwPersistentState*, int, float, float, float, int, float, float, cudnnStatus_t*, bool)
+                   10.20%  189.66us         1  189.66us  189.66us  189.66us  trt_volta_fp32_icudnn_int8x4_128x32_relu_small_nn_v1
+                    8.53%  158.50us         1  158.50us  158.50us  158.50us  void nhwkuv_to_nkpq_ker<int=32>(char*, float const *, int, int, int, int, int, int, nvinfer1::rt::reduced_divisor, int, int, nvinfer1::rt::reduced_divisor, nvinfer1::rt::reduced_divisor, int, int, int, float const *, float const *)
+                    6.27%  116.48us        11  10.589us  3.2320us  26.496us  cuInt8::nchwToNcqhw4(float const *, unsigned int*, int, int, int, int, int, int, int, float const *, cuInt8::ReducedDivisorParameters)
+                    4.73%  87.839us         7  12.548us  4.6080us  22.816us  void cuActivationLayer::activationKernelInt8<nvinfer1::ActivationType, int=1>(char4 const *, cuActivationLayer::activationKernelInt8<nvinfer1::ActivationType, int=1>*, float const *, float const , int, int, int, int, int, float)
+                    4.12%  76.607us         1  76.607us  76.607us  76.607us  trt_turing_fp32_i8816cudnn_int8_256x64_ldg16_relu_singleBuffer_small_nt_v1
+                    3.31%  61.599us         3  20.533us  9.6640us  34.175us  void nhwkuv_to_nkpq_ker<int=4>(float*, float const *, int, int, int, int, int, int, nvinfer1::rt::reduced_divisor, int, int, nvinfer1::rt::reduced_divisor, nvinfer1::rt::reduced_divisor, int, int, int, float const *, float const *)
+                    3.05%  56.672us         1  56.672us  56.672us  56.672us  trt_volta_fp32_icudnn_int8x4_128x128_relu_small_nn_v1
+                    2.95%  54.879us         1  54.879us  54.879us  54.879us  trt_volta_scudnn_128x32_relu_small_nn_v1
+                    2.68%  49.824us         1  49.824us  49.824us  49.824us  trt_volta_fp32_icudnn_int8x4_128x64_relu_xregs_large_nn_v1
+                    2.48%  46.111us         1  46.111us  46.111us  46.111us  cuInt8::nc32hw32ToNcqhw4(char4 const *, char4*, nvinfer1::rt::reduced_divisor, int, nvinfer1::rt::reduced_divisor, nvinfer1::rt::reduced_divisor, int, int, float const *, float const *)
+                    2.37%  44.032us        11  4.0020us  1.9840us  12.736us  [CUDA memcpy DtoD]
+                    2.02%  37.568us         1  37.568us  37.568us  37.568us  trt_volta_fp32_icudnn_int8x4_128x64_relu_small_nn_v1
+                    1.99%  36.992us         2  18.496us  18.080us  18.912us  volta_sgemm_128x32_nn
+                    1.70%  31.552us         1  31.552us  31.552us  31.552us  void xmma_trt::ext::implicit_gemm::interleaved_fprop::kernel<xmma_trt::ext::implicit_gemm::interleaved_fprop::Interleaved_kernel_traits<xmma_trt::Turing_imma_interleaved_int8_int32_traits, xmma_trt::Cta_tile<xmma_trt::Turing, int=32, int=64, int=64, int=1, int=1, int=1, int=1, int=1>, xmma_trt::ext::implicit_gemm::interleaved_fprop::Gmem_tile_epilogue<xmma_trt::Turing_imma_interleaved_int8_int32_traits, xmma_trt::Cta_tile<xmma_trt::Turing, int=32, int=64, int=64, int=1, int=1, int=1, int=1, int=1>, bool=0>, xmma_trt::implicit_gemm::Input_related<int=0, int=0, int=0, bool=0>, int=32, int=1>>(xmma_trt::Turing_imma_interleaved_int8_int32_traitsParams)
+                    1.56%  29.024us        22  1.3190us  1.2800us  1.6960us  [CUDA memcpy HtoD]
+                    1.53%  28.512us         1  28.512us  28.512us  28.512us  void fused::fusedConvolutionReluKernel<fused::SrcChwcPtr_FltTex_Reader<char, int=4, int=4, int=1, int=1>, fused::KpqkPtrWriter<char, int=4, int=1, int=1>, int, float, int=7, int=7, int=8, int=3, int=3, int=1, int=1>(fused::ConvolutionParams<charSrcType, int=1, int=4Type>)
+                    1.34%  24.896us         3  8.2980us  6.0480us  9.6960us  void nchw_to_nhwcin_ker<unsigned int>(unsigned int*, unsigned int const *, int, int, nvinfer1::rt::reduced_divisor, nvinfer1::rt::reduced_divisor, int, nvinfer1::rt::reduced_divisor, int, int, int, int, int, int)
+                    1.34%  24.832us         1  24.832us  24.832us  24.832us  volta_sgemm_32x128_nn
+                    1.21%  22.495us         1  22.495us  22.495us  22.495us  void fused::fusedConvolutionReluKernel<fused::SrcChwcPtr_FltTex_Reader<char, int=4, int=4, int=1, int=2>, fused::KpqkPtrWriter<char, int=4, int=2, int=1>, int, float, int=4, int=7, int=4, int=3, int=3, int=1, int=1>(fused::ConvolutionParams<charSrcType, int=1, int=4Type>)
+                    1.11%  20.704us         2  10.352us  9.1520us  11.552us  cuInt8::ncqhw4ToNc32hw32(char4 const *, char4*, nvinfer1::rt::reduced_divisor, int, nvinfer1::rt::reduced_divisor, nvinfer1::rt::reduced_divisor, int, int, float const *, float const *)
+                    0.97%  18.080us         4  4.5200us  3.4880us  5.8880us  void op_generic_tensor_kernel<int=1, float, float, float, int=256, cudnnGenericOp_t=8, cudnnNanPropagation_t=1, int=1>(cudnnTensorStruct, float*, cudnnTensorStruct, float const *, cudnnTensorStruct, float const *, float, float, float, float, reducedDivisorArray, int)
+                    0.69%  12.768us         1  12.768us  12.768us  12.768us  void nchw_to_nhwcin_ker<double4>(double4*, double4 const *, int, int, nvinfer1::rt::reduced_divisor, nvinfer1::rt::reduced_divisor, int, nvinfer1::rt::reduced_divisor, int, int, int, int, int, int)
+                    0.49%  9.1520us         1  9.1520us  9.1520us  9.1520us  void genericReformat::copyPackedKernel<char, float, bool=1, bool=0, genericReformat::IdentityCoordMapper<int=4>, int=4>(unsigned int, unsigned int, void const *, genericReformat::ArrayN<genericReformat::IdentityCoordMapper<int=4>>, genericReformat::ArrayNWithReducedDivisors<genericReformat::IdentityCoordMapper<int=4>>, genericReformat::ArrayN, int, int, int, float const *, void*, genericReformat::ArrayN, genericReformat::ArrayNWithReducedDivisors, genericReformat::ArrayNWithReducedDivisors, genericReformat::ArrayN, int, int, int, float const , int=4)
+                    0.43%  8.0310us         2  4.0150us  3.3920us  4.6390us  cuInt8::ncqhw4ToNchw(char const *, float*, int, int, int, int, int, int, float const *, cuInt8::ReducedDivisorParameters)
+                    0.43%  7.9680us         6  1.3280us  1.2800us  1.4400us  [CUDA memset]
+      API calls:   66.65%  994.27us        22  45.194us  8.4950us  159.04us  cudaMemcpy
+                   25.13%  374.94us        63  5.9510us  3.8980us  27.133us  cudaLaunchKernel
+                    6.29%  93.777us        11  8.5250us  5.6170us  22.191us  cudaMemcpyAsync
+                    1.94%  28.881us         6  4.8130us  3.2500us  11.221us  cudaMemsetAsync
+
+==28406==       Range "ExecutionContext::recompute"
+            Type  Time(%)      Time     Calls       Avg       Min       Max  Name
+          Range:  100.00%  20.957ms         1  20.957ms  20.957ms  20.957ms  ExecutionContext::recompute
+ GPU activities:  100.00%  44.032us        11  4.0020us  1.9840us  12.736us  [CUDA memcpy DtoD]
+      API calls:  100.00%  93.777us        11  8.5250us  5.6170us  22.191us  cudaMemcpyAsync
+
+==28406==       Range "InstanceNormalization_1"
+            Type  Time(%)      Time     Calls       Avg       Min       Max  Name
+          Range:  100.00%  44.072ms         1  44.072ms  44.072ms  44.072ms  InstanceNormalization_1
+ GPU activities:   94.13%  69.311us         1  69.311us  69.311us  69.311us  void cudnn::bn_fw_tr_1C11_singleread<float, int=512, bool=1, int=1, int=2, int=0>(cudnnTensorStruct, float const *, cudnn::bn_fw_tr_1C11_singleread<float, int=512, bool=1, int=1, int=2, int=0>, cudnnTensorStruct*, float const *, float const , float, float, float*, float const *, float const *, float const *, float, float, cudnn::reduced_divisor, int, float*, cudnn::bnFwPersistentState*, int, float, float, float, int, float, float, cudnnStatus_t*, bool)
+                    4.09%  3.0080us         2  1.5040us  1.3120us  1.6960us  [CUDA memcpy HtoD]
+                    1.78%  1.3120us         1  1.3120us  1.3120us  1.3120us  [CUDA memset]
+      API calls:   70.15%  66.978us         2  33.489us  9.2810us  57.697us  cudaMemcpy
+                   18.10%  17.278us         1  17.278us  17.278us  17.278us  cudaLaunchKernel
+                   11.75%  11.221us         1  11.221us  11.221us  11.221us  cudaMemsetAsync
+
+==28406==       Range "InstanceNormalization_10"
+            Type  Time(%)      Time     Calls       Avg       Min       Max  Name
+          Range:  100.00%  90.753us         1  90.753us  90.753us  90.753us  InstanceNormalization_10
+ GPU activities:   88.97%  31.231us         1  31.231us  31.231us  31.231us  void cudnn::bn_fw_tr_1C11_singleread<float, int=512, bool=1, int=1, int=2, int=0>(cudnnTensorStruct, float const *, cudnn::bn_fw_tr_1C11_singleread<float, int=512, bool=1, int=1, int=2, int=0>, cudnnTensorStruct*, float const *, float const , float, float, float*, float const *, float const *, float const *, float, float, cudnn::reduced_divisor, int, float*, cudnn::bnFwPersistentState*, int, float, float, float, int, float, float, cudnnStatus_t*, bool)
+                    7.29%  2.5600us         2  1.2800us  1.2800us  1.2800us  [CUDA memcpy HtoD]
+                    3.74%  1.3120us         1  1.3120us  1.3120us  1.3120us  [CUDA memset]
+      API calls:   87.64%  72.024us         2  36.012us  8.7730us  63.251us  cudaMemcpy
+                    8.02%  6.5890us         1  6.5890us  6.5890us  6.5890us  cudaLaunchKernel
+                    4.35%  3.5730us         1  3.5730us  3.5730us  3.5730us  cudaMemsetAsync
+
+==28406==       Range "InstanceNormalization_10 output reformatter 0"
+            Type  Time(%)      Time     Calls       Avg       Min       Max  Name
+          Range:  100.00%  10.408us         1  10.408us  10.408us  10.408us  InstanceNormalization_10 output reformatter 0
+ GPU activities:  100.00%  10.784us         1  10.784us  10.784us  10.784us  cuInt8::nchwToNcqhw4(float const *, unsigned int*, int, int, int, int, int, int, int, float const *, cuInt8::ReducedDivisorParameters)
+      API calls:  100.00%  5.5090us         1  5.5090us  5.5090us  5.5090us  cudaLaunchKernel
+
+==28406==       Range "InstanceNormalization_13"
+            Type  Time(%)      Time     Calls       Avg       Min       Max  Name
+          Range:  100.00%  90.672us         1  90.672us  90.672us  90.672us  InstanceNormalization_13
+ GPU activities:   77.31%  8.8320us         1  8.8320us  8.8320us  8.8320us  void cudnn::bn_fw_tr_1C11_singleread<float, int=512, bool=1, int=1, int=2, int=0>(cudnnTensorStruct, float const *, cudnn::bn_fw_tr_1C11_singleread<float, int=512, bool=1, int=1, int=2, int=0>, cudnnTensorStruct*, float const *, float const , float, float, float*, float const *, float const *, float const *, float, float, cudnn::reduced_divisor, int, float*, cudnn::bnFwPersistentState*, int, float, float, float, int, float, float, cudnnStatus_t*, bool)
+                   22.69%  2.5920us         2  1.2960us  1.2800us  1.3120us  [CUDA memcpy HtoD]
+      API calls:   92.91%  80.023us         2  40.011us  8.9470us  71.076us  cudaMemcpy
+                    7.09%  6.1110us         1  6.1110us  6.1110us  6.1110us  cudaLaunchKernel
+
+==28406==       Range "InstanceNormalization_13 output reformatter 0"
+            Type  Time(%)      Time     Calls       Avg       Min       Max  Name
+          Range:  100.00%  7.4590us         1  7.4590us  7.4590us  7.4590us  InstanceNormalization_13 output reformatter 0
+ GPU activities:  100.00%  4.0960us         1  4.0960us  4.0960us  4.0960us  cuInt8::nchwToNcqhw4(float const *, unsigned int*, int, int, int, int, int, int, int, float const *, cuInt8::ReducedDivisorParameters)
+      API calls:  100.00%  4.3520us         1  4.3520us  4.3520us  4.3520us  cudaLaunchKernel
+
+==28406==       Range "InstanceNormalization_16"
+            Type  Time(%)      Time     Calls       Avg       Min       Max  Name
+          Range:  100.00%  80.612us         1  80.612us  80.612us  80.612us  InstanceNormalization_16
+ GPU activities:   85.35%  15.104us         1  15.104us  15.104us  15.104us  void cudnn::bn_fw_tr_1C11_singleread<float, int=512, bool=1, int=1, int=2, int=0>(cudnnTensorStruct, float const *, cudnn::bn_fw_tr_1C11_singleread<float, int=512, bool=1, int=1, int=2, int=0>, cudnnTensorStruct*, float const *, float const , float, float, float*, float const *, float const *, float const *, float, float, cudnn::reduced_divisor, int, float*, cudnn::bnFwPersistentState*, int, float, float, float, int, float, float, cudnnStatus_t*, bool)
+                   14.65%  2.5920us         2  1.2960us  1.2800us  1.3120us  [CUDA memcpy HtoD]
+      API calls:   92.53%  70.737us         2  35.368us  9.2240us  61.513us  cudaMemcpy
+                    7.47%  5.7120us         1  5.7120us  5.7120us  5.7120us  cudaLaunchKernel
+
+==28406==       Range "InstanceNormalization_19"
+            Type  Time(%)      Time     Calls       Avg       Min       Max  Name
+          Range:  100.00%  56.092us         1  56.092us  56.092us  56.092us  InstanceNormalization_19
+ GPU activities:   80.90%  10.976us         1  10.976us  10.976us  10.976us  void cudnn::bn_fw_tr_1C11_singleread<float, int=512, bool=1, int=1, int=2, int=0>(cudnnTensorStruct, float const *, cudnn::bn_fw_tr_1C11_singleread<float, int=512, bool=1, int=1, int=2, int=0>, cudnnTensorStruct*, float const *, float const , float, float, float*, float const *, float const *, float const *, float, float, cudnn::reduced_divisor, int, float*, cudnn::bnFwPersistentState*, int, float, float, float, int, float, float, cudnnStatus_t*, bool)
+                   19.10%  2.5920us         2  1.2960us  1.2800us  1.3120us  [CUDA memcpy HtoD]
+      API calls:   89.04%  46.091us         2  23.045us  9.1640us  36.927us  cudaMemcpy
+                   10.96%  5.6710us         1  5.6710us  5.6710us  5.6710us  cudaLaunchKernel
+
+==28406==       Range "InstanceNormalization_19 input reformatter 0"
+            Type  Time(%)      Time     Calls       Avg       Min       Max  Name
+          Range:  100.00%  16.493us         1  16.493us  16.493us  16.493us  InstanceNormalization_19 input reformatter 0
+ GPU activities:  100.00%  9.1520us         1  9.1520us  9.1520us  9.1520us  void genericReformat::copyPackedKernel<char, float, bool=1, bool=0, genericReformat::IdentityCoordMapper<int=4>, int=4>(unsigned int, unsigned int, void const *, genericReformat::ArrayN<genericReformat::IdentityCoordMapper<int=4>>, genericReformat::ArrayNWithReducedDivisors<genericReformat::IdentityCoordMapper<int=4>>, genericReformat::ArrayN, int, int, int, float const *, void*, genericReformat::ArrayN, genericReformat::ArrayNWithReducedDivisors, genericReformat::ArrayNWithReducedDivisors, genericReformat::ArrayN, int, int, int, float const , int=4)
+      API calls:  100.00%  7.0190us         1  7.0190us  7.0190us  7.0190us  cudaLaunchKernel
+
+==28406==       Range "InstanceNormalization_24"
+            Type  Time(%)      Time     Calls       Avg       Min       Max  Name
+          Range:  100.00%  43.957us         1  43.957us  43.957us  43.957us  InstanceNormalization_24
+ GPU activities:   70.92%  6.4000us         1  6.4000us  6.4000us  6.4000us  void cudnn::bn_fw_tr_1C11_singleread<float, int=512, bool=1, int=1, int=2, int=0>(cudnnTensorStruct, float const *, cudnn::bn_fw_tr_1C11_singleread<float, int=512, bool=1, int=1, int=2, int=0>, cudnnTensorStruct*, float const *, float const , float, float, float*, float const *, float const *, float const *, float, float, cudnn::reduced_divisor, int, float*, cudnn::bnFwPersistentState*, int, float, float, float, int, float, float, cudnnStatus_t*, bool)
+                   29.08%  2.6240us         2  1.3120us  1.3120us  1.3120us  [CUDA memcpy HtoD]
+      API calls:   81.96%  32.448us         2  16.224us  8.6440us  23.804us  cudaMemcpy
+                   18.04%  7.1440us         1  7.1440us  7.1440us  7.1440us  cudaLaunchKernel
+
+==28406==       Range "InstanceNormalization_24 input reformatter 0"
+            Type  Time(%)      Time     Calls       Avg       Min       Max  Name
+          Range:  100.00%  7.7390us         1  7.7390us  7.7390us  7.7390us  InstanceNormalization_24 input reformatter 0
+ GPU activities:  100.00%  3.3920us         1  3.3920us  3.3920us  3.3920us  cuInt8::ncqhw4ToNchw(char const *, float*, int, int, int, int, int, int, float const *, cuInt8::ReducedDivisorParameters)
+      API calls:  100.00%  4.9130us         1  4.9130us  4.9130us  4.9130us  cudaLaunchKernel
+
+==28406==       Range "InstanceNormalization_29"
+            Type  Time(%)      Time     Calls       Avg       Min       Max  Name
+          Range:  100.00%  61.764us         1  61.764us  61.764us  61.764us  InstanceNormalization_29
+ GPU activities:   72.48%  6.9120us         1  6.9120us  6.9120us  6.9120us  void cudnn::bn_fw_tr_1C11_singleread<float, int=512, bool=1, int=1, int=2, int=0>(cudnnTensorStruct, float const *, cudnn::bn_fw_tr_1C11_singleread<float, int=512, bool=1, int=1, int=2, int=0>, cudnnTensorStruct*, float const *, float const , float, float, float*, float const *, float const *, float const *, float, float, cudnn::reduced_divisor, int, float*, cudnn::bnFwPersistentState*, int, float, float, float, int, float, float, cudnnStatus_t*, bool)
+                   27.52%  2.6240us         2  1.3120us  1.3120us  1.3120us  [CUDA memcpy HtoD]
+      API calls:   90.15%  51.416us         2  25.708us  8.8800us  42.536us  cudaMemcpy
+                    9.85%  5.6190us         1  5.6190us  5.6190us  5.6190us  cudaLaunchKernel
+
+==28406==       Range "InstanceNormalization_29 input reformatter 0"
+            Type  Time(%)      Time     Calls       Avg       Min       Max  Name
+          Range:  100.00%  6.5400us         1  6.5400us  6.5400us  6.5400us  InstanceNormalization_29 input reformatter 0
+ GPU activities:  100.00%  4.6390us         1  4.6390us  4.6390us  4.6390us  cuInt8::ncqhw4ToNchw(char const *, float*, int, int, int, int, int, int, float const *, cuInt8::ReducedDivisorParameters)
+      API calls:  100.00%  4.1230us         1  4.1230us  4.1230us  4.1230us  cudaLaunchKernel
+
+==28406==       Range "InstanceNormalization_34"
+            Type  Time(%)      Time     Calls       Avg       Min       Max  Name
+          Range:  100.00%  116.89us         1  116.89us  116.89us  116.89us  InstanceNormalization_34
+ GPU activities:   77.31%  13.408us         1  13.408us  13.408us  13.408us  void cudnn::bn_fw_tr_1C11_singleread<float, int=512, bool=1, int=1, int=2, int=0>(cudnnTensorStruct, float const *, cudnn::bn_fw_tr_1C11_singleread<float, int=512, bool=1, int=1, int=2, int=0>, cudnnTensorStruct*, float const *, float const , float, float, float*, float const *, float const *, float const *, float, float, cudnn::reduced_divisor, int, float*, cudnn::bnFwPersistentState*, int, float, float, float, int, float, float, cudnnStatus_t*, bool)
+                   15.13%  2.6240us         2  1.3120us  1.3120us  1.3120us  [CUDA memcpy HtoD]
+                    7.56%  1.3120us         1  1.3120us  1.3120us  1.3120us  [CUDA memset]
+      API calls:   91.39%  99.103us         2  49.551us  8.7450us  90.358us  cudaMemcpy
+                    5.06%  5.4830us         1  5.4830us  5.4830us  5.4830us  cudaLaunchKernel
+                    3.56%  3.8570us         1  3.8570us  3.8570us  3.8570us  cudaMemsetAsync
+
+==28406==       Range "InstanceNormalization_39"
+            Type  Time(%)      Time     Calls       Avg       Min       Max  Name
+          Range:  100.00%  184.65us         1  184.65us  184.65us  184.65us  InstanceNormalization_39
+ GPU activities:   89.91%  34.495us         1  34.495us  34.495us  34.495us  void cudnn::bn_fw_tr_1C11_singleread<float, int=512, bool=1, int=1, int=2, int=0>(cudnnTensorStruct, float const *, cudnn::bn_fw_tr_1C11_singleread<float, int=512, bool=1, int=1, int=2, int=0>, cudnnTensorStruct*, float const *, float const , float, float, float*, float const *, float const *, float const *, float, float, cudnn::reduced_divisor, int, float*, cudnn::bnFwPersistentState*, int, float, float, float, int, float, float, cudnnStatus_t*, bool)
+                    6.76%  2.5920us         2  1.2960us  1.2800us  1.3120us  [CUDA memcpy HtoD]
+                    3.34%  1.2800us         1  1.2800us  1.2800us  1.2800us  [CUDA memset]
+      API calls:   95.03%  167.82us         2  83.910us  8.7860us  159.04us  cudaMemcpy
+                    3.13%  5.5200us         1  5.5200us  5.5200us  5.5200us  cudaLaunchKernel
+                    1.84%  3.2500us         1  3.2500us  3.2500us  3.2500us  cudaMemsetAsync
+
+==28406==       Range "InstanceNormalization_39 output reformatter 0"
+            Type  Time(%)      Time     Calls       Avg       Min       Max  Name
+          Range:  100.00%  7.9800us         1  7.9800us  7.9800us  7.9800us  InstanceNormalization_39 output reformatter 0
+ GPU activities:  100.00%  11.104us         1  11.104us  11.104us  11.104us  cuInt8::nchwToNcqhw4(float const *, unsigned int*, int, int, int, int, int, int, int, float const *, cuInt8::ReducedDivisorParameters)
+      API calls:  100.00%  4.9540us         1  4.9540us  4.9540us  4.9540us  cudaLaunchKernel
+
+==28406==       Range "InstanceNormalization_4"
+            Type  Time(%)      Time     Calls       Avg       Min       Max  Name
+          Range:  100.00%  187.01us         1  187.01us  187.01us  187.01us  InstanceNormalization_4
+ GPU activities:   94.57%  68.575us         1  68.575us  68.575us  68.575us  void cudnn::bn_fw_tr_1C11_singleread<float, int=512, bool=1, int=1, int=2, int=0>(cudnnTensorStruct, float const *, cudnn::bn_fw_tr_1C11_singleread<float, int=512, bool=1, int=1, int=2, int=0>, cudnnTensorStruct*, float const *, float const , float, float, float*, float const *, float const *, float const *, float, float, cudnn::reduced_divisor, int, float*, cudnn::bnFwPersistentState*, int, float, float, float, int, float, float, cudnnStatus_t*, bool)
+                    3.62%  2.6240us         2  1.3120us  1.3120us  1.3120us  [CUDA memcpy HtoD]
+                    1.81%  1.3120us         1  1.3120us  1.3120us  1.3120us  [CUDA memset]
+      API calls:   94.37%  164.68us         2  82.341us  8.4950us  156.19us  cudaMemcpy
+                    3.50%  6.1020us         1  6.1020us  6.1020us  6.1020us  cudaLaunchKernel
+                    2.13%  3.7170us         1  3.7170us  3.7170us  3.7170us  cudaMemsetAsync
+
+==28406==       Range "InstanceNormalization_7"
+            Type  Time(%)      Time     Calls       Avg       Min       Max  Name
+          Range:  100.00%  159.62us         1  159.62us  159.62us  159.62us  InstanceNormalization_7
+ GPU activities:   80.47%  16.608us         1  16.608us  16.608us  16.608us  void cudnn::bn_fw_tr_1C11_singleread<float, int=512, bool=1, int=1, int=2, int=0>(cudnnTensorStruct, float const *, cudnn::bn_fw_tr_1C11_singleread<float, int=512, bool=1, int=1, int=2, int=0>, cudnnTensorStruct*, float const *, float const , float, float, float*, float const *, float const *, float const *, float, float, cudnn::reduced_divisor, int, float*, cudnn::bnFwPersistentState*, int, float, float, float, int, float, float, cudnnStatus_t*, bool)
+                   12.56%  2.5920us         2  1.2960us  1.2800us  1.3120us  [CUDA memcpy HtoD]
+                    6.98%  1.4400us         1  1.4400us  1.4400us  1.4400us  [CUDA memset]
+      API calls:   94.15%  142.95us         2  71.473us  8.9690us  133.98us  cudaMemcpy
+                    3.70%  5.6160us         1  5.6160us  5.6160us  5.6160us  cudaLaunchKernel
+                    2.15%  3.2630us         1  3.2630us  3.2630us  3.2630us  cudaMemsetAsync
+
+==28406==       Range "Relu_11"
+            Type  Time(%)      Time     Calls       Avg       Min       Max  Name
+          Range:  100.00%  5.9980us         1  5.9980us  5.9980us  5.9980us  Relu_11
+ GPU activities:  100.00%  11.744us         1  11.744us  11.744us  11.744us  void cuActivationLayer::activationKernelInt8<nvinfer1::ActivationType, int=1>(char4 const *, cuActivationLayer::activationKernelInt8<nvinfer1::ActivationType, int=1>*, float const *, float const , int, int, int, int, int, float)
+      API calls:  100.00%  4.2540us         1  4.2540us  4.2540us  4.2540us  cudaLaunchKernel
+
+==28406==       Range "Relu_14"
+            Type  Time(%)      Time     Calls       Avg       Min       Max  Name
+          Range:  100.00%  5.5120us         1  5.5120us  5.5120us  5.5120us  Relu_14
+ GPU activities:  100.00%  4.6080us         1  4.6080us  4.6080us  4.6080us  void cuActivationLayer::activationKernelInt8<nvinfer1::ActivationType, int=1>(char4 const *, cuActivationLayer::activationKernelInt8<nvinfer1::ActivationType, int=1>*, float const *, float const , int, int, int, int, int, float)
+      API calls:  100.00%  3.8980us         1  3.8980us  3.8980us  3.8980us  cudaLaunchKernel
+
+==28406==       Range "Relu_17"
+            Type  Time(%)      Time     Calls       Avg       Min       Max  Name
+          Range:  100.00%  6.5660us         1  6.5660us  6.5660us  6.5660us  Relu_17
+ GPU activities:  100.00%  7.2000us         1  7.2000us  7.2000us  7.2000us  void cuActivationLayer::activationKernelInt8<nvinfer1::ActivationType, int=1>(char4 const *, cuActivationLayer::activationKernelInt8<nvinfer1::ActivationType, int=1>*, float const *, float const , int, int, int, int, int, float)
+      API calls:  100.00%  3.9290us         1  3.9290us  3.9290us  3.9290us  cudaLaunchKernel
+
+==28406==       Range "Relu_17 input reformatter 0"
+            Type  Time(%)      Time     Calls       Avg       Min       Max  Name
+          Range:  100.00%  7.2850us         1  7.2850us  7.2850us  7.2850us  Relu_17 input reformatter 0
+ GPU activities:  100.00%  5.9840us         1  5.9840us  5.9840us  5.9840us  cuInt8::nchwToNcqhw4(float const *, unsigned int*, int, int, int, int, int, int, int, float const *, cuInt8::ReducedDivisorParameters)
+      API calls:  100.00%  4.5320us         1  4.5320us  4.5320us  4.5320us  cudaLaunchKernel
+
+==28406==       Range "Relu_2"
+            Type  Time(%)      Time     Calls       Avg       Min       Max  Name
+          Range:  100.00%  12.223us         1  12.223us  12.223us  12.223us  Relu_2
+ GPU activities:  100.00%  22.816us         1  22.816us  22.816us  22.816us  void cuActivationLayer::activationKernelInt8<nvinfer1::ActivationType, int=1>(char4 const *, cuActivationLayer::activationKernelInt8<nvinfer1::ActivationType, int=1>*, float const *, float const , int, int, int, int, int, float)
+      API calls:  100.00%  5.8300us         1  5.8300us  5.8300us  5.8300us  cudaLaunchKernel
+
+==28406==       Range "Relu_2 input reformatter 0"
+            Type  Time(%)      Time     Calls       Avg       Min       Max  Name
+          Range:  100.00%  29.692us         1  29.692us  29.692us  29.692us  Relu_2 input reformatter 0
+ GPU activities:  100.00%  26.496us         1  26.496us  26.496us  26.496us  cuInt8::nchwToNcqhw4(float const *, unsigned int*, int, int, int, int, int, int, int, float const *, cuInt8::ReducedDivisorParameters)
+      API calls:  100.00%  10.095us         1  10.095us  10.095us  10.095us  cudaLaunchKernel
+
+==28406==       Range "Relu_20"
+            Type  Time(%)      Time     Calls       Avg       Min       Max  Name
+          Range:  100.00%  56.436us         1  56.436us  56.436us  56.436us  Relu_20
+ GPU activities:  100.00%  4.5120us         1  4.5120us  4.5120us  4.5120us  void op_generic_tensor_kernel<int=1, float, float, float, int=256, cudnnGenericOp_t=8, cudnnNanPropagation_t=1, int=1>(cudnnTensorStruct, float*, cudnnTensorStruct, float const *, cudnnTensorStruct, float const *, float, float, float, float, reducedDivisorArray, int)
+      API calls:  100.00%  8.1110us         1  8.1110us  8.1110us  8.1110us  cudaLaunchKernel
+
+==28406==       Range "Relu_25"
+            Type  Time(%)      Time     Calls       Avg       Min       Max  Name
+          Range:  100.00%  7.6600us         1  7.6600us  7.6600us  7.6600us  Relu_25
+ GPU activities:  100.00%  3.4880us         1  3.4880us  3.4880us  3.4880us  void op_generic_tensor_kernel<int=1, float, float, float, int=256, cudnnGenericOp_t=8, cudnnNanPropagation_t=1, int=1>(cudnnTensorStruct, float*, cudnnTensorStruct, float const *, cudnnTensorStruct, float const *, float, float, float, float, reducedDivisorArray, int)
+      API calls:  100.00%  4.8370us         1  4.8370us  4.8370us  4.8370us  cudaLaunchKernel
+
+==28406==       Range "Relu_30"
+            Type  Time(%)      Time     Calls       Avg       Min       Max  Name
+          Range:  100.00%  7.9210us         1  7.9210us  7.9210us  7.9210us  Relu_30
+ GPU activities:  100.00%  4.1920us         1  4.1920us  4.1920us  4.1920us  void op_generic_tensor_kernel<int=1, float, float, float, int=256, cudnnGenericOp_t=8, cudnnNanPropagation_t=1, int=1>(cudnnTensorStruct, float*, cudnnTensorStruct, float const *, cudnnTensorStruct, float const *, float, float, float, float, reducedDivisorArray, int)
+      API calls:  100.00%  4.9650us         1  4.9650us  4.9650us  4.9650us  cudaLaunchKernel
+
+==28406==       Range "Relu_35"
+            Type  Time(%)      Time     Calls       Avg       Min       Max  Name
+          Range:  100.00%  8.3450us         1  8.3450us  8.3450us  8.3450us  Relu_35
+ GPU activities:  100.00%  5.8880us         1  5.8880us  5.8880us  5.8880us  void op_generic_tensor_kernel<int=1, float, float, float, int=256, cudnnGenericOp_t=8, cudnnNanPropagation_t=1, int=1>(cudnnTensorStruct, float*, cudnnTensorStruct, float const *, cudnnTensorStruct, float const *, float, float, float, float, reducedDivisorArray, int)
+      API calls:  100.00%  5.4390us         1  5.4390us  5.4390us  5.4390us  cudaLaunchKernel
+
+==28406==       Range "Relu_40"
+            Type  Time(%)      Time     Calls       Avg       Min       Max  Name
+          Range:  100.00%  5.8220us         1  5.8220us  5.8220us  5.8220us  Relu_40
+ GPU activities:  100.00%  11.680us         1  11.680us  11.680us  11.680us  void cuActivationLayer::activationKernelInt8<nvinfer1::ActivationType, int=1>(char4 const *, cuActivationLayer::activationKernelInt8<nvinfer1::ActivationType, int=1>*, float const *, float const , int, int, int, int, int, float)
+      API calls:  100.00%  4.0760us         1  4.0760us  4.0760us  4.0760us  cudaLaunchKernel
+
+==28406==       Range "Relu_5"
+            Type  Time(%)      Time     Calls       Avg       Min       Max  Name
+          Range:  100.00%  8.3300us         1  8.3300us  8.3300us  8.3300us  Relu_5
+ GPU activities:  100.00%  22.783us         1  22.783us  22.783us  22.783us  void cuActivationLayer::activationKernelInt8<nvinfer1::ActivationType, int=1>(char4 const *, cuActivationLayer::activationKernelInt8<nvinfer1::ActivationType, int=1>*, float const *, float const , int, int, int, int, int, float)
+      API calls:  100.00%  4.2400us         1  4.2400us  4.2400us  4.2400us  cudaLaunchKernel
+
+==28406==       Range "Relu_5 input reformatter 0"
+            Type  Time(%)      Time     Calls       Avg       Min       Max  Name
+          Range:  100.00%  8.7840us         1  8.7840us  8.7840us  8.7840us  Relu_5 input reformatter 0
+ GPU activities:  100.00%  26.496us         1  26.496us  26.496us  26.496us  cuInt8::nchwToNcqhw4(float const *, unsigned int*, int, int, int, int, int, int, int, float const *, cuInt8::ReducedDivisorParameters)
+      API calls:  100.00%  5.4020us         1  5.4020us  5.4020us  5.4020us  cudaLaunchKernel
+
+==28406==       Range "Relu_8"
+            Type  Time(%)      Time     Calls       Avg       Min       Max  Name
+          Range:  100.00%  5.6230us         1  5.6230us  5.6230us  5.6230us  Relu_8
+ GPU activities:  100.00%  7.0080us         1  7.0080us  7.0080us  7.0080us  void cuActivationLayer::activationKernelInt8<nvinfer1::ActivationType, int=1>(char4 const *, cuActivationLayer::activationKernelInt8<nvinfer1::ActivationType, int=1>*, float const *, float const , int, int, int, int, int, float)
+      API calls:  100.00%  4.0070us         1  4.0070us  4.0070us  4.0070us  cudaLaunchKernel
+
+==28406==       Range "Relu_8 input reformatter 0"
+            Type  Time(%)      Time     Calls       Avg       Min       Max  Name
+          Range:  100.00%  8.2850us         1  8.2850us  8.2850us  8.2850us  Relu_8 input reformatter 0
+ GPU activities:  100.00%  5.9830us         1  5.9830us  5.9830us  5.9830us  cuInt8::nchwToNcqhw4(float const *, unsigned int*, int, int, int, int, int, int, int, float const *, cuInt8::ReducedDivisorParameters)
+      API calls:  100.00%  5.1460us         1  5.1460us  5.1460us  5.1460us  cudaLaunchKernel
+
+==28406==       Range "Slice_21"
+            Type  Time(%)      Time     Calls       Avg       Min       Max  Name
+          Range:  100.00%     319ns         1     319ns     319ns     319ns  Slice_21
+No kernels were profiled in this range.
+No API activities were profiled in this range.
+
