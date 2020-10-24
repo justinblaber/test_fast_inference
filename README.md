@@ -1,4 +1,3 @@
-# nbdev template
+# test_fast_inference
 
-Use this template to more easily create your nbdev project.
-
+jupyter notebooks to test out various inference platforms (mainly tensorrt) to see how to perform fast inference.
